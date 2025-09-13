@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin - Welcome</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+          body {
+            background-image: url("/static/bg.jpg");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            
+          }
+
+         .content {
+            margin: 100px;
+         }
+
+    </style>
+  </head>
+  <body>
+
+    <nav class="navbar navbar-expand-lg bg-secondary navbar-dark sticky-top ">
+  <div class="container-fluid">
+    <a class="navbar-brand fw-bold">Palliative Care System - Admin</a>
+
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/admin_welcome/">Home</a>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Staff
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/admin_add_staff/">Add Staff</a></li>
+            <li><a class="dropdown-item" href="/admin_view_staff/">View Staff</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Bed Equipments
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/admin_add_bed/">Add Bed Equipments</a></li>
+            <li><a class="dropdown-item" href="/admin_view_bed/">View Bed Equipments</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="/admin_view_divisions/">Divisions</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="/admin_view_feedback/">Feedback</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="/admin_view_patient_history/">Patient History</a>
+        </li>
+
+        <li class="nav-item">
+              <a class="nav-link " href="/admin_view_patient_report/">Patient Reports</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="/admin_change_password/">Change Password</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="/logout/">Logout</a>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+    <div class="content">
+      <h1 class="fw-bold">Welcome Admin</h1>
+      <p> <strong>Welcome to the Palliative Care Admin Dashboard</strong> <br>
+A centralized platform designed  to streamline patient care, staff coordination, <br> and resource management. Easily monitor  patient records, assign care providers, <br> track appointments,  and manage reports  — all in one secure and user-friendly system.</p>
+    </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

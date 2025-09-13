@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - View Patient Reports</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/dataTables.bootstrap5.min.css">
+    <script src="https://cdn.datatables.net/1.13.5/js/dataTables.bootstrap5.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+      body {
+        background-image: url("/static/bg.jpg");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      }
+      .table-container {
+        max-width: 1200px;
+        padding: 30px;
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 12px;
+        box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.15);
+        margin-top: 40px;
+        margin-bottom: 50px;
+      }
+      
+      .dataTables_length select {
+          width: 70px !important;  
+          display: inline-block;
+      }
+      .pdf-icon {
+        color: #e74c3c;
+        font-size: 1.5rem;
+        margin-right: 8px;
+      }
+      
+      .page-title {
+        color: #2c3e50;
+        font-weight: 600;
+        margin-bottom: 25px;
+        text-align: center;
+        padding-bottom: 15px;
+        border-bottom: 2px solid #f0f4f8;
+      }
+      
+      .table thead th {
+        background-color: #2c3e50;
+        color: white;
+        font-weight: 500;
+        vertical-align: middle;
+        text-align: center;
+      }
+      .table td {
+        vertical-align: middle;
+        text-align: center;
+      }
+      .dataTables_wrapper .dataTables_filter input {
+        border-radius: 4px;
+        border: 1px solid #ced4da;
+        padding: 4px 8px;
+      }
+      #reportTable {
+        border-collapse: separate;
+        border-spacing: 0;
+        width: 100% !important;
+      }
+      #reportTable th, #reportTable td {
+        padding: 12px 8px;
+      }
+      .nav-brand {
+        font-weight: 700;
+        font-size: 1.4rem;
+      }
+      .table-container a {
+        text-decoration: none;
+        color: black;
+      }
+      .table-container a:hover {
+        text-decoration: underline;
+        color: blue;
+      }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-secondary navbar-dark sticky-top">
+      <div class="container-fluid">
+        <a class="navbar-brand nav-brand">Palliative Care System - Admin</a>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/admin_welcome/">Home</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Staff
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/admin_add_staff/">Add Staff</a></li>
+                <li><a class="dropdown-item" href="/admin_view_staff/">View Staff</a></li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Bed Equipments
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/admin_add_bed/">Add Bed Equipments</a></li>
+                <li><a class="dropdown-item" href="/admin_view_bed/">View Bed Equipments</a></li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/admin_view_divisions/">Divisions</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/admin_view_feedback/">Feedback</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/admin_view_patient_history/">Patient History</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/admin_view_patient_report/">Patient Reports</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/admin_change_password/">Change Password</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/logout/">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-12">
+          <div class="table-container">
+            <h2 class="page-title">Patient Reports</h2>
+
+            <table class="table table-hover table-bordered display" id="reportTable">
+              <thead class="table-dark">
+                <tr>
+                  <th >Sl No</th>
+                  <th >Staff</th>
+                  <th >Date</th>
+                  <th >Report File</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for i in data %}
+                <tr>
+                  <td>{{ forloop.counter }}</td>
+                  <td>{{ i.STAFF.name }}</td>
+                  <td>{{ i.date|date:"Y-m-d" }}</td>
+                  <td>
+                    <i class="fas fa-file-pdf pdf-icon"></i>
+                    <a href="{{ i.file.url }}" target="_blank">{{ i.file }}
+                    </a>
+                  </td>
+                </tr>
+                {% empty %}
+                <tr>
+                  <td colspan="6" class="text-center text-muted py-4">No reports found.</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <script>
+      $(document).ready(function () {
+          var table = $('#reportTable').DataTable({
+              "pageLength": 5,  
+              "lengthMenu": [5, 10, 25, 50],
+              "ordering": true,
+              "responsive": true,
+              "language": {
+                "lengthMenu": "Show _MENU_ entries",
+                "info": "Showing _START_ to _END_ of _TOTAL_ entries",
+                "infoEmpty": "Showing 0 to 0 of 0 entries",
+                "paginate": {
+                  "previous": "Previous",
+                  "next": "Next"
+                }
+              }
+          });
+                      
+            $('#downloadPdf').attr('href', pdfUrl);
+      });
+    </script>
+
+</body>
+</html>
